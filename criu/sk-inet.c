@@ -783,7 +783,11 @@ int inet_bind(int sk, struct inet_sk_info *ii)
 
 	if (bind(sk, (struct sockaddr *)&addr, addr_size) == -1) {
 		pr_perror("Can't bind inet socket (id %d)", ii->ie->id);
+#ifndef TCPOPT_RESTORE_IGNORE_CANT_BIND_INET_SOCKET_ERROR
 		return -1;
+#else
+		return 0;
+#endif
 	}
 
 	if (rst_freebind) {
