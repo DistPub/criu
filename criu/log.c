@@ -146,7 +146,7 @@ int log_init(const char *output)
 			return -1;
 		}
 	} else if (output) {
-		new_logfd = open(output, O_CREAT|O_TRUNC|O_WRONLY|O_APPEND, 0600);
+		new_logfd = open(output, O_CREAT|O_TRUNC|O_WRONLY|O_APPEND, 0644);
 		if (new_logfd < 0) {
 			pr_perror("Can't create log file %s", output);
 			return -1;
@@ -254,7 +254,7 @@ int write_pidfile(int pid)
 {
 	int fd;
 
-	fd = open(opts.pidfile, O_WRONLY | O_EXCL | O_CREAT, 0600);
+	fd = open(opts.pidfile, O_WRONLY | O_EXCL | O_CREAT, 0644);
 	if (fd == -1) {
 		pr_perror("Can't open %s", opts.pidfile);
 		return -1;
