@@ -814,7 +814,11 @@ int inet_connect(int sk, struct inet_sk_info *ii)
 
 	if (connect(sk, (struct sockaddr *)&addr, addr_size) == -1) {
 		pr_perror("Can't connect inet socket back");
+#ifndef TCPOPT_RESTORE_IGNORE_CANT_CONNECT_INET_SOCKET_BACK_ERROR
 		return -1;
+#else
+		return 0;
+#endif
 	}
 
 	return 0;
